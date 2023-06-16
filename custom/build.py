@@ -31,7 +31,7 @@ class BuildIDL(Command):
     def finalize_options(self):
         log.info('finalize_options --- start')
         #if not self.idl_path:
-        #    self.idl_path = OpenRTM_aist/RTM_IDL
+        #    self.idl_path = 'OpenRTM_aist/RTM_IDL'
         if not self.omniidl:
             self.omniidl = 'omniidl'
         if not self.stubs_dir:
@@ -63,6 +63,22 @@ class BuildIDL(Command):
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
+        idl_files = [os.path.join(self.idl_src_dir, f)
+                     for f in os.listdir(self.idl_src_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+
+        # ext/rtmCamera
+        self.idl_src_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
+        idl_files = [os.path.join(self.idl_src_dir, f)
+                     for f in os.listdir(self.idl_src_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+
+        # ext/rtmManipulator
+        self.idl_src_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
         idl_files = [os.path.join(self.idl_src_dir, f)
                      for f in os.listdir(self.idl_src_dir)
                      if os.path.splitext(f)[1] == '.idl']
