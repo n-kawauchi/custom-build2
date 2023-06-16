@@ -47,7 +47,8 @@ class BuildIDL(Command):
 
     def compile_one_idl(self, idl_f):
         outdir_param = '-C' + self.stubs_dir
-        pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
+        #pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
+        pkg_param = '-Wbpackage='
         #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
