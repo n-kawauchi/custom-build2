@@ -70,17 +70,17 @@ class BuildIDL(Command):
             self.compile_one_idl(f)
 
         # ext/rtmCamera
-        self.idl_src_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
-        idl_files = [os.path.join(self.idl_src_dir, f)
-                     for f in os.listdir(self.idl_src_dir)
+        self.idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
+        idl_files = [os.path.join(self.idl_target_dir, f)
+                     for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
             self.compile_one_idl(f)
 
         # ext/rtmManipulator
-        self.idl_src_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
-        idl_files = [os.path.join(self.idl_src_dir, f)
-                     for f in os.listdir(self.idl_src_dir)
+        self.idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
+        idl_files = [os.path.join(self.idl_target_dir, f)
+                     for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
             self.compile_one_idl(f)
