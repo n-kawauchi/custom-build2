@@ -150,6 +150,7 @@ class BuildIDL(Command):
         self.compile_idl()
         self.move_stubs()
         self.copy_idl()
+        self.build_example()
 
 
 class InstallIDL(Command):
