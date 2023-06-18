@@ -85,6 +85,22 @@ class BuildIDL(Command):
         for f in idl_files:
             self.compile_one_idl(f)
 
+        # ../ext/sdo/observer
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer:')
+        idl_files = [os.path.join(self.idl_target_dir, f)
+                     for f in os.listdir(self.idl_target_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+
+        # ../ext/fsm4rtc_observer
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer:')
+        idl_files = [os.path.join(self.idl_target_dir, f)
+                     for f in os.listdir(self.idl_target_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+
     def move_stubs(self):
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'RTM_IDL')
         log.info('Moving stubs to package directory {}'.format(stub_dest))
