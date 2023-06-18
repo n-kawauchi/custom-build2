@@ -86,7 +86,7 @@ class BuildIDL(Command):
             self.compile_one_idl(f)
 
         # ../ext/sdo/observer
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer:')
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
         idl_files = [os.path.join(self.idl_target_dir, f)
                      for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
@@ -94,7 +94,8 @@ class BuildIDL(Command):
             self.compile_one_idl(f)
 
         # ../ext/fsm4rtc_observer
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer:')
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
+        self.idl_target_dir = os.path.normpath(self.idl_target_dir)
         idl_files = [os.path.join(self.idl_target_dir, f)
                      for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
