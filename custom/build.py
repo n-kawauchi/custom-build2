@@ -135,13 +135,13 @@ class BuildIDL(Command):
         example_dir = "OpenRTM_aist/examples"
         #SimpleService
         current_dir = os.path.join(example_dir, "SimpleService")
-        include_dirs = [self.idl_dir, current_dir]
+        #include_dirs = [self.idl_dir, current_dir]
         idl_files = [os.path.join(current_dir, "MyService.idl")]
         for f in idl_files:
             self.compile_example_idl(f, current_dir)
         # AutoTest
         current_dir = os.path.join(example_dir, "AutoTest")
-        include_dirs = [baseidl_path, current_dir]
+        #include_dirs = [self.idl_dir, current_dir]
         idl_files = [os.path.join(current_dir, "AutoTestService.idl")]
         for f in idl_files:
             self.compile_example_idl(f, current_dir)
