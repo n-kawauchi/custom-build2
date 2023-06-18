@@ -95,7 +95,6 @@ class BuildIDL(Command):
 
         # ../ext/fsm4rtc_observer
         self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
-        self.idl_target_dir = os.path.normpath(self.idl_target_dir)
         idl_files = [os.path.join(self.idl_target_dir, f)
                      for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
@@ -116,6 +115,36 @@ class BuildIDL(Command):
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
             shutil.copy(f, self.idl_dir)
+
+    def compile_example_idl(self, idl_f, current_dir):
+        outdir_param = '-C' + current_dir
+        #pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
+        pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
+        #idl_path_param = '-I' + self.idl_path
+        idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
+        p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
+                              outdir_param, pkg_param, idl_f],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = p.communicate()
+        if p.returncode != 0:
+            raise errors.DistutilsExecError(
+                'Failed to compile IDL file {}\nStdout:\n{}\n---\nStderr:\n'
+                '{}'.format(idl_f, stdout, stderr))
+
+    def build_example(self):
+        example_dir = "OpenRTM_aist/examples"
+        #SimpleService
+        current_dir = os.path.join(example_dir, "SimpleService")
+        include_dirs = [self.idl_dir, current_dir]
+        idl_files = [os.path.join(current_dir, "MyService.idl")]
+        for f in idl_files:
+            self.compile_example_idl(f, current_dir)
+        # AutoTest
+        current_dir = os.path.join(example_dir, "AutoTest")
+        include_dirs = [baseidl_path, current_dir]
+        idl_files = [os.path.join(current_dir, "AutoTestService.idl")]
+        for f in idl_files:
+            self.compile_example_idl(f, current_dir)
 
     def run(self):
         self.compile_idl()
