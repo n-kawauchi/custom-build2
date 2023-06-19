@@ -101,6 +101,15 @@ class BuildIDL(Command):
         for f in idl_files:
             self.compile_one_idl(f)
 
+        #../example/SimpleService
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../example/SimpleService')
+        idl_files = [os.path.join(self.idl_target_dir, f)
+                     for f in os.listdir(self.idl_target_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+
+
     def move_stubs(self):
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'RTM_IDL')
         log.info('Moving stubs to package directory {}'.format(stub_dest))
@@ -155,7 +164,7 @@ class BuildIDL(Command):
         self.compile_idl()
         self.move_stubs()
         self.copy_idl()
-        self.build_example()
+        #self.build_example()
 
 
 class InstallIDL(Command):
