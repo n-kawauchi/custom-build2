@@ -60,56 +60,77 @@ class BuildIDL(Command):
                 'Failed to compile IDL file {}\nStdout:\n{}\n---\nStderr:\n'
                 '{}'.format(idl_f, stdout, stderr))
 
+    def set_idl_list(self, list_dir):
+        idl_files = [os.path.join(list_dir, f)
+                     for f in os.listdir(list_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
+    
+
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
-        idl_files = [os.path.join(self.idl_src_dir, f)
-                     for f in os.listdir(self.idl_src_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        set_idl_list(self.idl_src_dir)
+        #idl_files = [os.path.join(self.idl_src_dir, f)
+        #             for f in os.listdir(self.idl_src_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         # ext/rtmCamera
-        self.idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
-        idl_files = [os.path.join(self.idl_target_dir, f)
-                     for f in os.listdir(self.idl_target_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
+        set_idl_list(idl_target_dir)
+        #idl_files = [os.path.join(self.idl_target_dir, f)
+        #             for f in os.listdir(self.idl_target_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         # ext/rtmManipulator
-        self.idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
-        idl_files = [os.path.join(self.idl_target_dir, f)
-                     for f in os.listdir(self.idl_target_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
+        set_idl_list(idl_target_dir)
+        #idl_files = [os.path.join(self.idl_target_dir, f)
+        #             for f in os.listdir(self.idl_target_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         # ../ext/sdo/observer
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
-        idl_files = [os.path.join(self.idl_target_dir, f)
-                     for f in os.listdir(self.idl_target_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
+        set_idl_list(idl_target_dir)
+        #idl_files = [os.path.join(self.idl_target_dir, f)
+        #             for f in os.listdir(self.idl_target_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         # ../ext/fsm4rtc_observer
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
-        idl_files = [os.path.join(self.idl_target_dir, f)
-                     for f in os.listdir(self.idl_target_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
+        set_idl_list(idl_target_dir)
+        #idl_files = [os.path.join(self.idl_target_dir, f)
+        #             for f in os.listdir(self.idl_target_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         #../examples/SimpleService
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
-        idl_files = [os.path.join(self.idl_target_dir, f)
-                     for f in os.listdir(self.idl_target_dir)
+        idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
+        idl_files = [os.path.join(idl_target_dir, f)
+                     for f in os.listdir(idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
         pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         for f in idl_files:
             self.compile_example_idl(f, pkg_param)
 
+        #../examples/AutoTest
+        idl_target_dir = os.path.join(self.idl_src_dir, '../examples/AutoTest')
+        idl_files = [os.path.join(idl_target_dir, f)
+                     for f in os.listdir(idl_target_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        pkg_param = '-Wbstubs=OpenRTM_aist.examples.AutoTest'
+        for f in idl_files:
+            self.compile_example_idl(f, pkg_param)
 
     def move_stubs(self):
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'RTM_IDL')
@@ -117,10 +138,15 @@ class BuildIDL(Command):
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
         
-        stub_dest2 = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(stub_dest2))
+        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'SimpleService'),
-                       stub_dest2)
+                       stub_dest)
+        
+        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
+        log.info('Moving stubs to package directory {}'.format(stub_dest))
+        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'AutoTest'),
+                       stub_dest)
 
     def copy_idl(self):
         log.info('Copying IDL files')
@@ -133,14 +159,7 @@ class BuildIDL(Command):
 
     def compile_example_idl(self, idl_f, pkg_param):
         outdir_param = '-C' + self.stubs_dir 
-        #pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        #pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
-        #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
-        log.info('*** compile_example_idl : idl_path_param {}'.format(idl_path_param))
-        log.info('*** compile_example_idl : outdir_param {}'.format(outdir_param))
-        log.info('*** compile_example_idl : pkh_param {}'.format(pkg_param))
-        log.info('*** compile_example_idl : idl_f {}'.format(idl_f))
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -170,7 +189,6 @@ class BuildIDL(Command):
         self.compile_idl()
         self.move_stubs()
         self.copy_idl()
-        #self.build_example()
 
 
 class InstallIDL(Command):
