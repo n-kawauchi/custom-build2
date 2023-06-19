@@ -47,8 +47,8 @@ class BuildIDL(Command):
 
     def compile_one_idl(self, idl_f):
         outdir_param = '-C' + self.stubs_dir
-        #pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
+        pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
+        #pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
         #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
@@ -119,7 +119,8 @@ class BuildIDL(Command):
         idl_files = [os.path.join(idl_target_dir, f)
                      for f in os.listdir(idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
-        pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
+        #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
+        pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
         for f in idl_files:
             self.compile_example_idl(f, pkg_param)
 
@@ -128,7 +129,8 @@ class BuildIDL(Command):
         idl_files = [os.path.join(idl_target_dir, f)
                      for f in os.listdir(idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
-        pkg_param = '-Wbstubs=OpenRTM_aist.examples.AutoTest'
+        #pkg_param = '-Wbstubs=OpenRTM_aist.examples.AutoTest'
+        pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
         for f in idl_files:
             self.compile_example_idl(f, pkg_param)
 
