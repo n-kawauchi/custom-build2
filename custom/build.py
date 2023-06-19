@@ -101,8 +101,8 @@ class BuildIDL(Command):
         for f in idl_files:
             self.compile_one_idl(f)
 
-        #../example/SimpleService
-        self.idl_target_dir = os.path.join(self.idl_src_dir, '../example/SimpleService')
+        #../examples/SimpleService
+        self.idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
         idl_files = [os.path.join(self.idl_target_dir, f)
                      for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
