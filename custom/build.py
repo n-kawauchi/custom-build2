@@ -106,8 +106,9 @@ class BuildIDL(Command):
         idl_files = [os.path.join(self.idl_target_dir, f)
                      for f in os.listdir(self.idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
+        pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         for f in idl_files:
-            self.compile_one_idl(f)
+            self.compile_example_idl(f, pkg_param)
 
 
     def move_stubs(self):
@@ -115,6 +116,11 @@ class BuildIDL(Command):
         log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
+        
+        stub_dest2 = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        log.info('Moving stubs to package directory {}'.format(stub_dest2))
+        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'SimpleService'),
+                       stub_dest2)
 
     def copy_idl(self):
         log.info('Copying IDL files')
@@ -125,10 +131,10 @@ class BuildIDL(Command):
         for f in idl_files:
             shutil.copy(f, self.idl_dir)
 
-    def compile_example_idl(self, idl_f, current_dir):
-        outdir_param = '-C' + current_dir
+    def compile_example_idl(self, idl_f, pkg_param):
+        outdir_param = '-C' + self.stubs_dir 
         #pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
+        #pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
         #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         log.info('*** compile_example_idl : idl_path_param {}'.format(idl_path_param))
