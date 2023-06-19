@@ -122,6 +122,10 @@ class BuildIDL(Command):
         pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
         #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
+        log.info('*** compile_example_idl : idl_path_param {}'.format(idl_path_param))
+        log.info('*** compile_example_idl : outdir_param {}'.format(outdir_param))
+        log.info('*** compile_example_idl : pkh_param {}'.format(pkg_param))
+        log.info('*** compile_example_idl : idl_f {}'.format(idl_f))
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -132,6 +136,7 @@ class BuildIDL(Command):
                 '{}'.format(idl_f, stdout, stderr))
 
     def build_example(self):
+        log.info('build_example')
         example_dir = "OpenRTM_aist/examples"
         #SimpleService
         current_dir = os.path.join(example_dir, "SimpleService")
