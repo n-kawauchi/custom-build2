@@ -71,7 +71,7 @@ class BuildIDL(Command):
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
-        set_idl_list(self.idl_src_dir)
+        self.set_idl_list(self.idl_src_dir)
         #idl_files = [os.path.join(self.idl_src_dir, f)
         #             for f in os.listdir(self.idl_src_dir)
         #             if os.path.splitext(f)[1] == '.idl']
@@ -80,7 +80,7 @@ class BuildIDL(Command):
 
         # ext/rtmCamera
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
-        set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir)
         #idl_files = [os.path.join(self.idl_target_dir, f)
         #             for f in os.listdir(self.idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
@@ -89,7 +89,7 @@ class BuildIDL(Command):
 
         # ext/rtmManipulator
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
-        set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir)
         #idl_files = [os.path.join(self.idl_target_dir, f)
         #             for f in os.listdir(self.idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
@@ -98,7 +98,7 @@ class BuildIDL(Command):
 
         # ../ext/sdo/observer
         idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
-        set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir)
         #idl_files = [os.path.join(self.idl_target_dir, f)
         #             for f in os.listdir(self.idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
@@ -107,7 +107,7 @@ class BuildIDL(Command):
 
         # ../ext/fsm4rtc_observer
         idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
-        set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir)
         #idl_files = [os.path.join(self.idl_target_dir, f)
         #             for f in os.listdir(self.idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
