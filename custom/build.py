@@ -26,6 +26,7 @@ class BuildIDL(Command):
         self.stubs_dir = None
         self.idl_dir = None
         self.build_lib = None
+        self.examples_dir = None
         #self.idl_path = None
 
     def finalize_options(self):
@@ -41,6 +42,10 @@ class BuildIDL(Command):
             self.set_undefined_options('build', ('build_base', 'idl_dir'))
             #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
             self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
+        if not self.examples_dir:
+            self.set_undefined_options('build', ('build_base', 'examples_dir'))
+            #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
+            self.examples_dir = os.path.join(self.examples_dir, 'OpenRTM_aist/examples')
         #self.idl_src_dir = os.path.join(os.getcwd(), self.idl_path)
         self.idl_src_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/RTM_IDL')
         self.set_undefined_options('build', ('build_lib', 'build_lib'))
@@ -115,16 +120,13 @@ class BuildIDL(Command):
         #    self.compile_one_idl(f)
 
         #../examples/SimpleService
-        self.set_undefined_options('build', ('build_base', 'SimpleService_dir'))
+        self.mkpath(self.examples_dir)
             #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
         #self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
         #idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
-        SimpleService_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
-        self.mkpath(SimpleService_dir)
-        #idl_files = [os.path.join(idl_target_dir, f)
-        #             for f in os.listdir(idl_target_dir)
-        idl_files = [os.path.join(SimpleService_dir, f)
-                     for f in os.listdir(SimpleService_dir)
+        idl_target_dir = os.path.join(self.examples_dir, 'SimpleService')
+        idl_files = [os.path.join(idl_target_dir, f)
+                     for f in os.listdir(idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
         #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
