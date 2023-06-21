@@ -20,8 +20,8 @@ class BuildIDL(Command):
         ('idl-dir=', 'i', 'directory to place IDL files in'),
         ]
 
-    #pkg_shortver = 2.0
-    pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
+    pkg_shortver = 2.0
+    #pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
     log.info('******** pkg_shortver {}'.format(pkg_shortver))
 
 
