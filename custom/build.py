@@ -184,7 +184,7 @@ class BuildIDL(Command):
         #SimpleService
         current_dir = os.path.join(example_dir, "SimpleService")
         #include_dirs = [self.idl_dir, current_dir]
-        idl_files = [os.path.join(current_dir, "MyService.idl")]
+        idl_files = [os.path.join(current_dir, "MyService.idl")]
         for f in idl_files:
             self.compile_example_idl(f, current_dir)
         # AutoTest
