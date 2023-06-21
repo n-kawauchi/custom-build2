@@ -20,9 +20,9 @@ class BuildIDL(Command):
         ('idl-dir=', 'i', 'directory to place IDL files in'),
         ]
 
-    pkg_shortver = 2.0
+    self.pkg_shortver = 2.0
     #pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
-    log.info('******** pkg_shortver {}'.format(pkg_shortver))
+    log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
 
 
     def initialize_options(self):
@@ -152,7 +152,7 @@ class BuildIDL(Command):
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
        
-        example_install_dir = "/user/share/openrtm-" + pkg_shortver + "/components/python3"
+        example_install_dir = "/user/share/openrtm-" + self.pkg_shortver + "/components/python3"
         self.mkpath(example_install_dir)
         #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
         log.info('Moving stubs to package directory {}'.format(example_install_dir))
