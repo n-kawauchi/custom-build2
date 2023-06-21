@@ -115,9 +115,16 @@ class BuildIDL(Command):
         #    self.compile_one_idl(f)
 
         #../examples/SimpleService
-        idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
-        idl_files = [os.path.join(idl_target_dir, f)
-                     for f in os.listdir(idl_target_dir)
+        self.set_undefined_options('build', ('build_base', 'SimpleService_dir'))
+            #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
+        #self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
+        #idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
+        SimpleService_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
+        self.mkpath(SimpleService_dir)
+        #idl_files = [os.path.join(idl_target_dir, f)
+        #             for f in os.listdir(idl_target_dir)
+        idl_files = [os.path.join(SimpleService_dir, f)
+                     for f in os.listdir(SimpleService_dir)
                      if os.path.splitext(f)[1] == '.idl']
         #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
@@ -177,7 +184,7 @@ class BuildIDL(Command):
         #SimpleService
         current_dir = os.path.join(example_dir, "SimpleService")
         #include_dirs = [self.idl_dir, current_dir]
-        idl_files = [os.path.join(current_dir, "MyService.idl")]
+        idl_files = [os.path.join(current_dir, "MyService.idl")]
         for f in idl_files:
             self.compile_example_idl(f, current_dir)
         # AutoTest
