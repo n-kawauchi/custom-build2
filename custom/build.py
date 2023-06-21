@@ -155,7 +155,7 @@ class BuildIDL(Command):
         example_install_dir = "/user/share/openrtm-" + pkg_shortver + "/components/python3"
         self.mkpath(example_install_dir)
         #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(example_install_dir)
+        log.info('Moving stubs to package directory {}'.format(example_install_dir))
         self.copy_tree(self.examples_dir, example_install_dir)
         
 
