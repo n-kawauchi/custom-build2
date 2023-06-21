@@ -21,16 +21,14 @@ class BuildIDL(Command):
         ]
 
     def initialize_options(self):
-        log.info('initialize_options --- start')
         self.omniidl = None
         self.stubs_dir = None
         self.idl_dir = None
         self.build_lib = None
-        self.examples_dir = None
+        #self.examples_dir = None
         #self.idl_path = None
 
     def finalize_options(self):
-        log.info('finalize_options --- start')
         #if not self.idl_path:
         #    self.idl_path = 'OpenRTM_aist/RTM_IDL'
         if not self.omniidl:
@@ -42,12 +40,12 @@ class BuildIDL(Command):
             self.set_undefined_options('build', ('build_base', 'idl_dir'))
             #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
             self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
-        if not self.examples_dir:
-            self.set_undefined_options('build', ('build_base', 'examples_dir'))
-            #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
-            self.examples_dir = os.path.join(self.examples_dir, 'OpenRTM_aist/examples')
+        #if not self.examples_dir:
+        #    self.set_undefined_options('build', ('build_base', 'examples_dir'))
+        #    self.examples_dir = os.path.join(self.examples_dir, 'OpenRTM_aist/examples')
         #self.idl_src_dir = os.path.join(os.getcwd(), self.idl_path)
         self.idl_src_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/RTM_IDL')
+        self.examples_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/examples')
         self.set_undefined_options('build', ('build_lib', 'build_lib'))
 
     def compile_one_idl(self, idl_f):
@@ -120,7 +118,7 @@ class BuildIDL(Command):
         #    self.compile_one_idl(f)
 
         #../examples/SimpleService
-        self.mkpath(self.examples_dir)
+        #self.mkpath(self.examples_dir)
             #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
         #self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
         #idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
