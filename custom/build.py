@@ -20,6 +20,11 @@ class BuildIDL(Command):
         ('idl-dir=', 'i', 'directory to place IDL files in'),
         ]
 
+    #pkg_shortver = 2.0
+    pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
+    log.info('******** pkg_shortver {}'.format(pkg_shortver))
+
+
     def initialize_options(self):
         self.omniidl = None
         self.stubs_dir = None
@@ -132,7 +137,7 @@ class BuildIDL(Command):
             self.compile_example_idl(f, pkg_param)
 
         #../examples/AutoTest
-        idl_target_dir = os.path.join(self.idl_src_dir, '../examples/AutoTest')
+        idl_target_dir = os.path.join(self.examples_dir, 'AutoTest')
         idl_files = [os.path.join(idl_target_dir, f)
                      for f in os.listdir(idl_target_dir)
                      if os.path.splitext(f)[1] == '.idl']
@@ -146,16 +151,13 @@ class BuildIDL(Command):
         log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
+       
+        example_install_dir = "/user/share/openrtm-" + pkg_shortver + "/components/python3"
+        self.mkpath(example_install_dir)
+        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        log.info('Moving stubs to package directory {}'.format(example_install_dir)
+        self.copy_tree(self.examples_dir, example_install_dir)
         
-        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'SimpleService'),
-                       stub_dest)
-        
-        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
-        log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'AutoTest'),
-                       stub_dest)
 
     def copy_idl(self):
         log.info('Copying IDL files')
