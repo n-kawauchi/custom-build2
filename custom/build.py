@@ -20,12 +20,12 @@ class BuildIDL(Command):
         ('idl-dir=', 'i', 'directory to place IDL files in'),
         ]
 
-    self.pkg_shortver = 2.0
     #pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
-    log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
+    i#log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
 
 
     def initialize_options(self):
+        self.pkg_shortver = None
         self.omniidl = None
         self.stubs_dir = None
         self.idl_dir = None
@@ -36,8 +36,8 @@ class BuildIDL(Command):
     def finalize_options(self):
         #if not self.idl_path:
         #    self.idl_path = 'OpenRTM_aist/RTM_IDL'
-        if not self.omniidl:
-            self.omniidl = 'omniidl'
+        if not self.pkg_shortver:
+            self.pkg_shortver = 2.0
         if not self.stubs_dir:
             self.set_undefined_options('build', ('build_base', 'stubs_dir'))
             self.stubs_dir = os.path.join(self.stubs_dir, 'stubs')
