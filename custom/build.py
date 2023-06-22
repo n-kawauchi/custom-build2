@@ -25,7 +25,7 @@ class BuildIDL(Command):
 
 
     def initialize_options(self):
-        self.pkg_shortver = None
+        #self.pkg_shortver = None
         self.omniidl = None
         self.stubs_dir = None
         self.idl_dir = None
@@ -36,8 +36,10 @@ class BuildIDL(Command):
     def finalize_options(self):
         #if not self.idl_path:
         #    self.idl_path = 'OpenRTM_aist/RTM_IDL'
-        if not self.pkg_shortver:
-            self.pkg_shortver = 2.0
+        #if not self.pkg_shortver:
+        #    self.pkg_shortver = 2.0
+        if not self.omniidl:
+            self.omniidl = 'omniidl'
         if not self.stubs_dir:
             self.set_undefined_options('build', ('build_base', 'stubs_dir'))
             self.stubs_dir = os.path.join(self.stubs_dir, 'stubs')
@@ -79,12 +81,12 @@ class BuildIDL(Command):
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
-        #self.set_idl_list(self.idl_src_dir)
-        idl_files = [os.path.join(self.idl_src_dir, f)
-                     for f in os.listdir(self.idl_src_dir)
-                     if os.path.splitext(f)[1] == '.idl']
-        for f in idl_files:
-            self.compile_one_idl(f)
+        self.set_idl_list(self.idl_src_dir)
+        #idl_files = [os.path.join(self.idl_src_dir, f)
+        #             for f in os.listdir(self.idl_src_dir)
+        #             if os.path.splitext(f)[1] == '.idl']
+        #for f in idl_files:
+        #    self.compile_one_idl(f)
 
         # ext/rtmCamera
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
