@@ -152,11 +152,11 @@ class BuildIDL(Command):
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
        
-        example_install_dir = "/user/share/openrtm-" + self.pkg_shortver + "/components/python3"
-        self.mkpath(example_install_dir)
+        #example_install_dir = "/user/share/openrtm-" + self.pkg_shortver + "/components/python3"
+        #self.mkpath(example_install_dir)
         #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(example_install_dir))
-        self.copy_tree(self.examples_dir, example_install_dir)
+        #log.info('Moving stubs to package directory {}'.format(example_install_dir))
+        #self.copy_tree(self.examples_dir, example_install_dir)
         
 
     def copy_idl(self):
