@@ -21,7 +21,7 @@ class BuildIDL(Command):
         ]
 
     #pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
-    i#log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
+    #log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
 
 
     def initialize_options(self):
