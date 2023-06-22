@@ -79,12 +79,12 @@ class BuildIDL(Command):
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
-        self.set_idl_list(self.idl_src_dir)
-        #idl_files = [os.path.join(self.idl_src_dir, f)
-        #             for f in os.listdir(self.idl_src_dir)
-        #             if os.path.splitext(f)[1] == '.idl']
-        #for f in idl_files:
-        #    self.compile_one_idl(f)
+        #self.set_idl_list(self.idl_src_dir)
+        idl_files = [os.path.join(self.idl_src_dir, f)
+                     for f in os.listdir(self.idl_src_dir)
+                     if os.path.splitext(f)[1] == '.idl']
+        for f in idl_files:
+            self.compile_one_idl(f)
 
         # ext/rtmCamera
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
