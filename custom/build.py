@@ -131,15 +131,16 @@ class BuildIDL(Command):
         ##idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
         log.info('*** current_dir {}'.format(current_dir))
-        include_dirs = [self.idl_src_dir, current_dir]
-        log.info('*** include_dirs {}'.format(include_dirs))
+        #include_dirs = [self.idl_src_dir, current_dir]
+        #log.info('*** include_dirs {}'.format(include_dirs))
         idl_files = [os.path.join(current_dir, "MyService.idl")]
         #             for f in os.listdir(idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
         #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
         #for f in idl_files:
-        self.compile_example_idl(idl_files, include_dirs, current_dir, pkg_param)
+        #self.compile_example_idl(idl_files, include_dirs, current_dir, pkg_param)
+        self.compile_example_idl(idl_files, current_dir, pkg_param)
 
         #../examples/AutoTest
         #idl_target_dir = os.path.join(self.examples_dir, 'AutoTest')
@@ -173,9 +174,10 @@ class BuildIDL(Command):
         for f in idl_files:
             shutil.copy(f, self.idl_dir)
 
-    def compile_example_idl(self, idl_f, include_dirs, current_dir, pkg_param):
+    #def compile_example_idl(self, idl_f, include_dirs, current_dir, pkg_param):
+    def compile_example_idl(self, idl_f, current_dir, pkg_param):
         outdir_param = '-C' + current_dir 
-        idl_path_param = ['-I' + inc for inc in include_dirs]
+        idl_path_param = '-I' + self.idl_src_dir + ' ' + current_dir
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
