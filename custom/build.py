@@ -131,7 +131,7 @@ class BuildIDL(Command):
         ##idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
         log.info('*** current_dir {}'.format(current_dir))
-        include_dirs = [self.idl_dir, current_dir]
+        include_dirs = [self.idl_src_dir, current_dir]
         log.info('*** include_dirs {}'.format(include_dirs))
         idl_files = [os.path.join(current_dir, "MyService.idl")]
         #             for f in os.listdir(idl_target_dir)
