@@ -131,7 +131,7 @@ class BuildIDL(Command):
         ##idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
         include_dirs = [self.idl_dir, current_dir]
-        idl_files = [os.path.join(idl_target_dir, "MyService.idl")
+        idl_files = [os.path.join(current_dir, "MyService.idl")]
         #             for f in os.listdir(idl_target_dir)
         #             if os.path.splitext(f)[1] == '.idl']
         #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
