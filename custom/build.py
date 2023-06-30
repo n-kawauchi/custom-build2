@@ -177,8 +177,8 @@ class BuildIDL(Command):
     #def compile_example_idl(self, idl_f, include_dirs, current_dir, pkg_param):
     def compile_example_idl(self, idl_f, current_dir, pkg_param):
         outdir_param = '-C' + current_dir 
-        log.info('*** compile_example_idl : self.idl_src_dir {}'.format(self.idl_src_dir))
-        idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL ' + idl_f
+        log.info('*** compile_example_idl : idl_f {}'.format(idl_f))
+        idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
         #idl_path_param = '-I' + self.idl_src_dir + ' ' + idl_f
         log.info('*** ompile_example_idl : idl_path_param {}'.format(idl_path_param))
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
