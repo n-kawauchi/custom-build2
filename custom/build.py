@@ -178,10 +178,9 @@ class BuildIDL(Command):
     def compile_example_idl(self, idl_f, current_dir, pkg_param):
         outdir_param = '-C' + current_dir 
         idl_path_param = '-I' + self.idl_src_dir + ' ' + idl_f
-        #p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
-        #                      outdir_param, pkg_param, idl_f],
-        p = subprocess.Popen(self.omniidl, '-bpython', idl_path_param,
-                              outdir_param, pkg_param, idl_f,
+        log.info('compile_example_idl : idl_path_param {}'.format(idl_path_param))
+        p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
+                              outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = p.communicate()
         if p.returncode != 0:
