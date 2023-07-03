@@ -106,12 +106,6 @@ class BuildIDL(Command):
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
        
-        #example_install_dir = "/user/share/openrtm-" + self.pkg_shortver + "/components/python3"
-        #self.mkpath(example_install_dir)
-        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        #log.info('Moving stubs to package directory {}'.format(example_install_dir))
-        #self.copy_tree(self.examples_dir, example_install_dir)
-        
 
     def copy_idl(self):
         log.info('Copying IDL files')
@@ -122,10 +116,10 @@ class BuildIDL(Command):
         for f in idl_files:
             shutil.copy(f, self.idl_dir)
 
-    #def compile_example_idl(self, idl_f, include_dirs, current_dir, pkg_param):
     def compile_example_idl(self, idl_f, pkg_param):
         #outdir_param = '-C' + current_dir 
         outdir_param = '-C' + self.stubs_dir 
+        log.info('***kawa compile_example_idl : outdir_param {}'.format(outdir_param))
         log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
         #idl_path_param = '-I' + self.idl_src_dir + ' ' + idl_f
