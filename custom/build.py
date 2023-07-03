@@ -139,7 +139,7 @@ class BuildIDL(Command):
                 'Failed to compile IDL file {}\nStdout:\n{}\n---\nStderr:\n'
                 '{}'.format(idl_f, stdout, stderr))
 
-    def compile_example_idl(self):
+    def examples_idl(self):
         log.info('Generating Python stubs from examples IDL files')
         #../examples/SimpleService
         self.mkpath(self.examples_dir)
@@ -159,7 +159,7 @@ class BuildIDL(Command):
         self.compile_idl()
         self.move_stubs()
         self.copy_idl()
-        self.compile_example_idl()
+        self.examples_idl()
 
 
 class InstallIDL(Command):
