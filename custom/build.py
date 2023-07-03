@@ -137,14 +137,14 @@ class BuildIDL(Command):
         log.info('Generating Python stubs from examples IDL files')
         #../examples/SimpleService
         self.mkpath(self.examples_dir)
-        examples_dir2 = self.examples_dir
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
         idl_file = os.path.join(current_dir, "MyService.idl")
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
         self.compile_example_idl(idl_file, pkg_param)
 
         #../examples/AutoTest
-        current_dir = os.path.join(examples_dir2, 'AutoTest')
+        self.mkpath(self.examples_dir2)
+        current_dir = os.path.join(self.examples_dir2, 'AutoTest')
         idl_file = os.path.join(current_dir, "AutoTestService.idl")
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
         self.compile_example_idl(idl_file, pkg_param)
