@@ -127,32 +127,16 @@ class BuildIDL(Command):
 
         #../examples/SimpleService
         self.mkpath(self.examples_dir)
-            #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
-        ##self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
-        ##idl_target_dir = os.path.join(self.idl_src_dir, '../examples/SimpleService')
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
-        log.info('*** current_dir {}'.format(current_dir))
-        #include_dirs = [self.idl_src_dir, current_dir]
-        #log.info('*** include_dirs {}'.format(include_dirs))
-        #idl_file = [os.path.join(current_dir, "MyService.idl")]
         idl_file = os.path.join(current_dir, "MyService.idl")
-        #             for f in os.listdir(idl_target_dir)
-        #             if os.path.splitext(f)[1] == '.idl']
-        #pkg_param = '-Wbstubs=OpenRTM_aist.examples.SimpleService'
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
-        #for f in idl_files:
-        #self.compile_example_idl(idl_files, include_dirs, current_dir, pkg_param)
         self.compile_example_idl(idl_file, current_dir, pkg_param)
 
         #../examples/AutoTest
-        #idl_target_dir = os.path.join(self.examples_dir, 'AutoTest')
-        #idl_files = [os.path.join(idl_target_dir, f)
-        #             for f in os.listdir(idl_target_dir)
-        #             if os.path.splitext(f)[1] == '.idl']
-        ##pkg_param = '-Wbstubs=OpenRTM_aist.examples.AutoTest'
-        #pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
-        #for f in idl_files:
-        #    self.compile_example_idl(f, pkg_param)
+        current_dir = os.path.join(self.examples_dir, 'AutoTest')
+        idl_file = os.path.join(current_dir, "AutoTestService.idl")
+        pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
+        self.compile_example_idl(idl_file, current_dir, pkg_param)
 
     def move_stubs(self):
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'RTM_IDL')
