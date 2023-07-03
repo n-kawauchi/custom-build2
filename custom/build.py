@@ -74,6 +74,7 @@ class BuildIDL(Command):
         idl_files = [os.path.join(list_dir, f)
                      for f in os.listdir(list_dir)
                      if os.path.splitext(f)[1] == '.idl']
+        log.info('*** set_idl_list : self.stubs_dir  {}'.format(self.stubs_dir))
         for f in idl_files:
             self.compile_one_idl(f)
     
