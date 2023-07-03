@@ -75,7 +75,7 @@ class BuildIDL(Command):
                      for f in os.listdir(list_dir)
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
-            log.info('*** set_idl_list : f  {}'.format(f))
+            log.info('***kawa set_idl_list : f  {}'.format(f))
             self.compile_one_idl(f)
     
 
@@ -164,10 +164,10 @@ class BuildIDL(Command):
     def compile_example_idl(self, idl_f, pkg_param):
         #outdir_param = '-C' + current_dir 
         outdir_param = '-C' + self.stubs_dir 
-        log.info('*** compile_example_idl : idl_f {}'.format(idl_f))
+        log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
         #idl_path_param = '-I' + self.idl_src_dir + ' ' + idl_f
-        log.info('*** compile_example_idl : idl_path_param {}'.format(idl_path_param))
+        log.info('***kawa compile_example_idl : idl_path_param {}'.format(idl_path_param))
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
