@@ -105,14 +105,14 @@ class BuildIDL(Command):
         log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
-        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
-        log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.examples_dir, 'AutoTest'),
-                       stub_dest)
-        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.examples_dir, 'SimpleService'),
-                       stub_dest)
+        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
+        #log.info('Moving stubs to package directory {}'.format(stub_dest))
+        #self.copy_tree(os.path.join(self.examples_dir, 'AutoTest'),
+        #               stub_dest)
+        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        #log.info('Moving stubs to package directory {}'.format(stub_dest))
+        #self.copy_tree(os.path.join(self.examples_dir, 'SimpleService'),
+        #               stub_dest)
        
 
     def copy_idl(self):
@@ -125,8 +125,8 @@ class BuildIDL(Command):
             shutil.copy(f, self.idl_dir)
 
     def compile_example_idl(self, idl_f, pkg_param, current_dir):
-        #outdir_param = '-C' + current_dir 
-        outdir_param = '-C' + self.stubs_dir 
+        outdir_param = '-C' + current_dir 
+        #outdir_param = '-C' + self.stubs_dir 
         log.info('***kawa compile_example_idl : outdir_param {}'.format(outdir_param))
         log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
