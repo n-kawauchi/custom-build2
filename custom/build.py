@@ -107,11 +107,11 @@ class BuildIDL(Command):
                        stub_dest)
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
         log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'AutoTest'),
+        self.copy_tree(os.path.join(self.examples_dir, 'AutoTest'),
                        stub_dest)
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
         log.info('Moving stubs to package directory {}'.format(stub_dest))
-        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'SimpleService'),
+        self.copy_tree(os.path.join(self.examples_dir, 'SimpleService'),
                        stub_dest)
        
 
@@ -153,7 +153,8 @@ class BuildIDL(Command):
 
         #../examples/AutoTest
         #self.mkpath(examples_dir2)
-        current_dir = os.path.join(self.examples_dir2, 'AutoTest')
+        #current_dir = os.path.join(self.examples_dir2, 'AutoTest')
+        current_dir = os.path.join(self.examples_dir, 'AutoTest')
         idl_file = os.path.join(current_dir, "AutoTestService.idl")
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
         self.compile_example_idl(idl_file, pkg_param, current_dir)
