@@ -116,9 +116,9 @@ class BuildIDL(Command):
         for f in idl_files:
             shutil.copy(f, self.idl_dir)
 
-    def compile_example_idl(self, idl_f, pkg_param):
-        #outdir_param = '-C' + current_dir 
-        outdir_param = '-C' + self.stubs_dir 
+    def compile_example_idl(self, idl_f, pkg_param, current_dir):
+        outdir_param = '-C' + current_dir 
+        #outdir_param = '-C' + self.stubs_dir 
         log.info('***kawa compile_example_idl : outdir_param {}'.format(outdir_param))
         log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
@@ -141,14 +141,14 @@ class BuildIDL(Command):
         current_dir = os.path.join(self.examples_dir, 'SimpleService')
         idl_file = os.path.join(current_dir, "MyService.idl")
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.SimpleService'
-        self.compile_example_idl(idl_file, pkg_param)
+        self.compile_example_idl(idl_file, pkg_param, current_dir)
 
         #../examples/AutoTest
         #self.mkpath(examples_dir2)
         current_dir = os.path.join(self.examples_dir2, 'AutoTest')
         idl_file = os.path.join(current_dir, "AutoTestService.idl")
         pkg_param = '-Wbpackages=OpenRTM_aist.examples.AutoTest'
-        self.compile_example_idl(idl_file, pkg_param)
+        self.compile_example_idl(idl_file, pkg_param, current_dir)
 
 
     def run(self):
