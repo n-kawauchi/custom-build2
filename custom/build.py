@@ -106,7 +106,7 @@ class BuildIDL(Command):
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
     
-    def copy_example_idl(self):
+    def copy_examples_idl(self):
         log.info('Copying IDL files of sample RTC')
         example_dest= os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
         log.info('Moving stubs to package directory {}'.format(example_dest))
