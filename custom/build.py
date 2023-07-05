@@ -117,8 +117,8 @@ class BuildIDL(Command):
             shutil.copy(f, self.idl_dir)
 
     def compile_example_idl(self, idl_f, pkg_param, current_dir):
-        outdir_param = '-C' + current_dir 
-        #outdir_param = '-C' + self.stubs_dir 
+        #outdir_param = '-C' + current_dir 
+        outdir_param = '-C' + self.stubs_dir 
         log.info('***kawa compile_example_idl : outdir_param {}'.format(outdir_param))
         log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
@@ -153,9 +153,9 @@ class BuildIDL(Command):
 
     def run(self):
         self.compile_idl()
+        self.examples_idl()
         self.move_stubs()
         self.copy_idl()
-        self.examples_idl()
 
 
 class InstallIDL(Command):
