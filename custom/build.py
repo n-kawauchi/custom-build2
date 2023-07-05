@@ -105,14 +105,20 @@ class BuildIDL(Command):
         log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
-        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
-        #log.info('Moving stubs to package directory {}'.format(stub_dest))
-        #self.copy_tree(os.path.join(self.examples_dir, 'AutoTest'),
-        #               stub_dest)
-        #stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        #log.info('Moving stubs to package directory {}'.format(stub_dest))
-        #self.copy_tree(os.path.join(self.examples_dir, 'SimpleService'),
-        #               stub_dest)
+    
+    def copy_example_idl(self):
+        log.info('Copying IDL files of sample RTC')
+        example_dest= os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
+        log.info('Moving stubs to package directory {}'.format(example_dest))
+        target_dir = os.path.join(self.examples_dir, 'AutoTest')
+        log.info('Moving target to package directory {}'.format(target_dir))
+        self.copy_tree(target_dir, stub_dest)
+        
+        example_dest= os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        log.info('Moving stubs to package directory {}'.format(example_dest))
+        target_dir = os.path.join(self.examples_dir, 'SimpleService')
+        log.info('Moving target to package directory {}'.format(target_dir))
+        self.copy_tree(target_dir, stub_dest)
        
 
     def copy_idl(self):
@@ -162,9 +168,10 @@ class BuildIDL(Command):
 
     def run(self):
         self.compile_idl()
-        self.examples_idl()
         self.move_stubs()
         self.copy_idl()
+        self.examples_idl()
+        self.copy_examples_idl()
 
 
 class InstallIDL(Command):
