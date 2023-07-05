@@ -105,6 +105,14 @@ class BuildIDL(Command):
         log.info('Moving stubs to package directory {}'.format(stub_dest))
         self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'RTM_IDL'),
                        stub_dest)
+        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
+        log.info('Moving stubs to package directory {}'.format(stub_dest))
+        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'AutoTest'),
+                       stub_dest)
+        stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
+        log.info('Moving stubs to package directory {}'.format(stub_dest))
+        self.copy_tree(os.path.join(self.stubs_dir, 'OpenRTM_aist', 'examples', 'SimpleService'),
+                       stub_dest)
        
 
     def copy_idl(self):
