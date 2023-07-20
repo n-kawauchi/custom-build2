@@ -5,6 +5,8 @@
 from setuptools import Command 
 from setuptools._distutils import errors 
 from setuptools._distutils import log
+from setuptools._distutils import util
+from setuptools._distutils import cmd
 import os
 import os.path
 import setuptools
