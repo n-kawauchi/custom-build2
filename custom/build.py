@@ -163,7 +163,7 @@ class BuildDoc(Command):
             self.doxygen = 'doxygen'
         self.document_path = os.path.join(os.getcwd(), 'OpenRTM_aist/docs')
 
-    def create_doc(doxygen_conf, target_dir):
+    def create_doc(self, doxygen_conf, target_dir):
         """
         create_doc
         - doxygen_conf: [string] path to Doxygen's conf file
