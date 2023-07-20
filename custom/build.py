@@ -161,10 +161,6 @@ class BuildDoc(Command):
     def finalize_options(self):
         if not self.doxygen:
             self.doxygen = 'doxygen'
-        self.set_undefined_options('build', ('build_base', 'build_dir'))
-        self.set_undefined_options('install', ('install_lib', 'install_dir'),
-                                   ('force', 'force'),
-                                   ('skip_build', 'skip_build'))
 
     def create_doc(doxygen_conf, target_dir):
         """
