@@ -222,12 +222,12 @@ class BuildDoc(Command):
         conf_file = os.path.normpath(self.document_path + "/Doxyfile_en")
         self.build_doc_common(conf_in_file, conf_file)
         target_dir = os.path.normpath(self.document_path + "/ClassReference-en")
-        create_doc(conf_file, target_dir)
+        self.create_doc(conf_file, target_dir)
 
         conf_in_file = os.path.normpath(self.document_path + "/Doxyfile_jp.in")
         conf_file = os.path.normpath(self.document_path + "/Doxyfile_jp")
         self.build_doc_common(conf_in_file, conf_file)
         target_dir = os.path.normpath(self.document_path + "/ClassReference-jp")
-        create_doc(conf_file, target_dir)
+        self.create_doc(conf_file, target_dir)
 
 # vim: set expandtab tabstop=8 shiftwidth=4 softtabstop=4 textwidth=79
