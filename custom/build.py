@@ -180,9 +180,9 @@ class BuildDoc(Command):
 
             #cmdline = string.join(cmd)
             cmdline = " ".join(cmd)
-            if os_is() == "win32":
-                os.system(cmdline)
-                return
+            #if os_is() == "win32":
+            #    os.system(cmdline)
+            #    return
             log.info(cmdline)
             try:
                 proc = subprocess.run(
