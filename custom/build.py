@@ -166,25 +166,25 @@ class BuildDoc(Command):
                                    ('force', 'force'),
                                    ('skip_build', 'skip_build'))
 
-	def create_doc(doxygen_conf, target_dir):
+    def create_doc(doxygen_conf, target_dir):
+        """
+        create_doc
+        - doxygen_conf: [string] path to Doxygen's conf file
+        - target_dir  : [string] directory to where doxygen generates documentation
     	"""
-    	create_doc
-      	- doxygen_conf: [string] path to Doxygen's conf file
-      	- target_dir  : [string] directory to where doxygen generates documentation
-    	"""
-    	def exec_doxygen(cmd):
-        	# remove target dir
-        	if os.path.exists(target_dir + "/html/index.html"):
-            	return
-        	if os.path.exists(target_dir):
-            	shutil.rmtree(target_dir)
+        def exec_doxygen(cmd):
+            # remove target dir
+            if os.path.exists(target_dir + "/html/index.html"):
+                return
+            if os.path.exists(target_dir):
+                shutil.rmtree(target_dir)
 
-        	#cmdline = string.join(cmd)
-        	cmdline = " ".join(cmd)
-        	if os_is() == "win32":
-            	os.system(cmdline)
-            	return
-        	log.info(cmdline)
+            #cmdline = string.join(cmd)
+            cmdline = " ".join(cmd)
+            if os_is() == "win32":
+                os.system(cmdline)
+                return
+            log.info(cmdline)
             try:
                 proc = subprocess.run(
                     cmdline,
@@ -197,18 +197,18 @@ class BuildDoc(Command):
             except BaseException:
                 status = 1
 
-        	if status != 0:
-            	raise errors.DistutilsExecError("Return status of %s is %d" %
+            if status != 0:
+                raise errors.DistutilsExecError("Return status of %s is %d" %
                                             (cmd, status))
-        	return
-    	# compile IDL by using dist.util.execute
-    	docdir = os.path.dirname(doxygen_conf)
-    	tmp = os.getcwd()
-    	os.chdir(docdir)
-    	cmd = ["doxygen", doxygen_conf]
-    	util.execute(exec_doxygen, [cmd],
-                 "Generating documentation")
-    	os.chdir(tmp)
+            return
+        # compile IDL by using dist.util.execute
+        docdir = os.path.dirname(doxygen_conf)
+        tmp = os.getcwd()
+        os.chdir(docdir)
+        cmd = ["doxygen", doxygen_conf]
+        util.execute(exec_doxygen, [cmd],
+                   "Generating documentation")
+        os.chdir(tmp)
 
     def build_doc_common(self, infile, outfile):
         f_input = open(infile, 'r')
