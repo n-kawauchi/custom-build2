@@ -14,30 +14,20 @@ import subprocess
 
 class BuildIDL(Command):
     description = 'generate Python stubs from the IDL files'
-    user_options = [
-        ('omniidl=', 'o', 'omniidl compiler executable'),
-        ('stubs-dir=', 's', 'directory to generate stubs in'),
-        ('idl-dir=', 'i', 'directory to place IDL files in'),
-        ]
-
-    #pkg_shortver = attr: OpenRTM_aist.version.openrtm_version
-    #log.info('******** pkg_shortver {}'.format(self.pkg_shortver))
+#    user_options = [
+#        ('omniidl=', 'o', 'omniidl compiler executable'),
+#        ('stubs-dir=', 's', 'directory to generate stubs in'),
+#        ('idl-dir=', 'i', 'directory to place IDL files in'),
+#        ]
 
 
     def initialize_options(self):
-        #self.pkg_shortver = None
         self.omniidl = None
         self.stubs_dir = None
         self.idl_dir = None
         self.build_lib = None
-        #self.examples_dir = None
-        #self.idl_path = None
 
     def finalize_options(self):
-        #if not self.idl_path:
-        #    self.idl_path = 'OpenRTM_aist/RTM_IDL'
-        #if not self.pkg_shortver:
-        #    self.pkg_shortver = 2.0
         if not self.omniidl:
             self.omniidl = 'omniidl'
         if not self.stubs_dir:
@@ -45,12 +35,7 @@ class BuildIDL(Command):
             self.stubs_dir = os.path.join(self.stubs_dir, 'stubs')
         if not self.idl_dir:
             self.set_undefined_options('build', ('build_base', 'idl_dir'))
-            #self.idl_dir = os.path.join(self.idl_dir, self.idl_path)
             self.idl_dir = os.path.join(self.idl_dir, 'OpenRTM_aist/RTM_IDL')
-        #if not self.examples_dir:
-        #    self.set_undefined_options('build', ('build_base', 'examples_dir'))
-        #    self.examples_dir = os.path.join(self.examples_dir, 'OpenRTM_aist/examples')
-        #self.idl_src_dir = os.path.join(os.getcwd(), self.idl_path)
         self.idl_src_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/RTM_IDL')
         self.examples_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/examples')
         self.set_undefined_options('build', ('build_lib', 'build_lib'))
@@ -58,8 +43,6 @@ class BuildIDL(Command):
     def compile_one_idl(self, idl_f):
         outdir_param = '-C' + self.stubs_dir
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        #pkg_param = '-Wbstubs=OpenRTM_aist.RTM_IDL'
-        #idl_path_param = '-I' + self.idl_path
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
@@ -109,15 +92,11 @@ class BuildIDL(Command):
     def copy_examples_idl(self):
         log.info('Copying IDL files of sample RTC')
         example_dest= os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'AutoTest')
-        log.info('Moving stubs to package directory {}'.format(example_dest))
         target_dir = os.path.join(self.examples_dir, 'AutoTest')
-        log.info('Moving target to package directory {}'.format(target_dir))
         self.copy_tree(target_dir, example_dest)
         
         example_dest= os.path.join(self.build_lib, 'OpenRTM_aist', 'examples', 'SimpleService')
-        log.info('Moving stubs to package directory {}'.format(example_dest))
         target_dir = os.path.join(self.examples_dir, 'SimpleService')
-        log.info('Moving target to package directory {}'.format(target_dir))
         self.copy_tree(target_dir, example_dest)
        
 
@@ -132,12 +111,7 @@ class BuildIDL(Command):
 
     def compile_example_idl(self, idl_f, pkg_param, current_dir):
         outdir_param = '-C' + current_dir 
-        #outdir_param = '-C' + self.stubs_dir 
-        log.info('***kawa compile_example_idl : outdir_param {}'.format(outdir_param))
-        log.info('***kawa compile_example_idl : idl_f {}'.format(idl_f))
         idl_path_param = '-IOpenRTM_aist/RTM_IDL ' + idl_f
-        #idl_path_param = '-I' + self.idl_src_dir + ' ' + idl_f
-        log.info('***kawa compile_example_idl : idl_path_param {}'.format(idl_path_param))
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -171,39 +145,91 @@ class BuildIDL(Command):
         self.copy_examples_idl()
 
 
-class InstallIDL(Command):
-    description = 'install the Python stubs generated from IDL files'
-    user_options = [
-        ('install-dir=', 'd', 'directory to install stubs to'),
-        ('build-dir=', 'b', 'build directory (where to install from'),
-        ('force', 'f', 'force installation (overwrite existing files)'),
-        ('skip-build', None, 'skip the build steps'),
-        ]
-    boolean_options = ['force', 'skip-build']
+class BuildDoc(Command):
+    description = 'Generate documentation from source code.'
+#    user_options = [
+#        ('install-dir=', 'd', 'directory to install stubs to'),
+#        ('build-dir=', 'b', 'build directory (where to install from'),
+#        ('force', 'f', 'force installation (overwrite existing files)'),
+#        ('skip-build', None, 'skip the build steps'),
+#        ]
+#    boolean_options = ['force', 'skip-build']
 
     def initialize_options(self):
-        self.install_dir = None
-        self.install_dir = None
-        self.build_dir = None
-        self.force = None
-        self.skip_build = None
+        self.doxygen = None
 
     def finalize_options(self):
+        if not self.doxygen:
+            self.doxygen = 'doxygen'
         self.set_undefined_options('build', ('build_base', 'build_dir'))
         self.set_undefined_options('install', ('install_lib', 'install_dir'),
                                    ('force', 'force'),
                                    ('skip_build', 'skip_build'))
 
+	def create_doc(doxygen_conf, target_dir):
+    	"""
+    	create_doc
+      	- doxygen_conf: [string] path to Doxygen's conf file
+      	- target_dir  : [string] directory to where doxygen generates documentation
+    	"""
+    	def exec_doxygen(cmd):
+        	# remove target dir
+        	if os.path.exists(target_dir + "/html/index.html"):
+            	return
+        	if os.path.exists(target_dir):
+            	shutil.rmtree(target_dir)
+
+        	#cmdline = string.join(cmd)
+        	cmdline = " ".join(cmd)
+        	if os_is() == "win32":
+            	os.system(cmdline)
+            	return
+        	log.info(cmdline)
+            try:
+                proc = subprocess.run(
+                    cmdline,
+                    shell=True,
+                    check=True,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE)
+                status = 0
+                log.info(proc.stdout.decode("UTF-8"))
+            except BaseException:
+                status = 1
+
+        	if status != 0:
+            	raise errors.DistutilsExecError("Return status of %s is %d" %
+                                            (cmd, status))
+        	return
+    	# compile IDL by using dist.util.execute
+    	docdir = os.path.dirname(doxygen_conf)
+    	tmp = os.getcwd()
+    	os.chdir(docdir)
+    	cmd = ["doxygen", doxygen_conf]
+    	util.execute(exec_doxygen, [cmd],
+                 "Generating documentation")
+    	os.chdir(tmp)
+
+    def build_doc_common(self, infile, outfile):
+        f_input = open(infile, 'r')
+        src = f_input.read()
+        f_input.close()
+        dst = src.replace("__VERSION__", pkg_version)
+        f_output = open(outfile, 'w')
+        f_output.write(dst)
+        f_output.close()
+
     def run(self):
-        if not self.skip_build:
-            self.run_command('build_idl')
-        # Copy the IDL files to rtctree/data/idl
-        self.outfiles = self.copy_tree(
-                os.path.join(self.build_dir, 'idl'),
-                os.path.join(self.install_dir, 'rtctree', 'data', 'idl'))
+        conf_in_file = os.path.normpath(document_path + "/Doxyfile_en.in")
+        conf_file = os.path.normpath(document_path + "/Doxyfile_en")
+        self.build_doc_common(conf_in_file, conf_file)
+        target_dir = os.path.normpath(document_path + "/ClassReference-en")
+        create_doc(conf_file, target_dir)
 
-    def get_outputs(self):
-        return self.outfiles or []
-
+        conf_in_file = os.path.normpath(document_path + "/Doxyfile_jp.in")
+        conf_file = os.path.normpath(document_path + "/Doxyfile_jp")
+        self.build_doc_common(conf_in_file, conf_file)
+        target_dir = os.path.normpath(document_path + "/ClassReference-jp")
+        create_doc(conf_file, target_dir)
 
 # vim: set expandtab tabstop=8 shiftwidth=4 softtabstop=4 textwidth=79
