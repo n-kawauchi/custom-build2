@@ -161,6 +161,7 @@ class BuildDoc(Command):
     def finalize_options(self):
         if not self.doxygen:
             self.doxygen = 'doxygen'
+        self.document_path = os.path.join(os.getcwd(), 'OpenRTM_aist/docs')
 
     def create_doc(doxygen_conf, target_dir):
         """
@@ -216,16 +217,16 @@ class BuildDoc(Command):
         f_output.close()
 
     def run(self):
-        conf_in_file = os.path.normpath(document_path + "/Doxyfile_en.in")
-        conf_file = os.path.normpath(document_path + "/Doxyfile_en")
+        conf_in_file = os.path.normpath(self.document_path + "/Doxyfile_en.in")
+        conf_file = os.path.normpath(self.document_path + "/Doxyfile_en")
         self.build_doc_common(conf_in_file, conf_file)
-        target_dir = os.path.normpath(document_path + "/ClassReference-en")
+        target_dir = os.path.normpath(self.document_path + "/ClassReference-en")
         create_doc(conf_file, target_dir)
 
-        conf_in_file = os.path.normpath(document_path + "/Doxyfile_jp.in")
-        conf_file = os.path.normpath(document_path + "/Doxyfile_jp")
+        conf_in_file = os.path.normpath(self.document_path + "/Doxyfile_jp.in")
+        conf_file = os.path.normpath(self.document_path + "/Doxyfile_jp")
         self.build_doc_common(conf_in_file, conf_file)
-        target_dir = os.path.normpath(document_path + "/ClassReference-jp")
+        target_dir = os.path.normpath(self.document_path + "/ClassReference-jp")
         create_doc(conf_file, target_dir)
 
 # vim: set expandtab tabstop=8 shiftwidth=4 softtabstop=4 textwidth=79
