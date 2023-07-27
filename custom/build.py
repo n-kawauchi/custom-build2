@@ -46,7 +46,7 @@ class BuildIDL(Command):
         outdir_param = '-C' + self.stubs_dir
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
-        if 'Manipulator' in f:
+        if 'Manipulator' in idl_f:
             idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
