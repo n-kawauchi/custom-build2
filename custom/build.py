@@ -47,7 +47,8 @@ class BuildIDL(Command):
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         if 'Manipulator' in idl_f:
-            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
+            #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
+            idl_path_param += ' -I' + './'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -78,7 +79,7 @@ class BuildIDL(Command):
         # ext/rtmManipulator
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
         self.set_idl_list(idl_target_dir)
-
+        
         # ../ext/sdo/observer
         idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
         self.set_idl_list(idl_target_dir)
