@@ -46,6 +46,8 @@ class BuildIDL(Command):
         outdir_param = '-C' + self.stubs_dir
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
+        if 'Manipulator' in f:
+            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -60,7 +62,7 @@ class BuildIDL(Command):
                      for f in os.listdir(list_dir)
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
-            log.info('***kawa set_idl_list : f  {}'.format(f))
+            log.info('***kawa set_idl_list : {}'.format(f))
             self.compile_one_idl(f)
     
 
