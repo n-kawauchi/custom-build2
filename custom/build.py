@@ -49,10 +49,10 @@ class BuildIDL(Command):
         if idl_type == 'common':
             #self.common_idl_dirname = os.path.dirname(idl_f)
             idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
-        idl_path_param = '-I' + self.common_idl_dirname
+        #idl_path_param = '-I' + self.common_idl_dirname
         #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmManipulator'
         if idl_type == 'Manipulator':
-            dirname = os.path.dirname(idl_f)
+            #dirname = os.path.dirname(idl_f)
             #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
             #idl_path_param += ' -I' + dirname
             #idl_path_param = '-I' + self.common_idl_dirname + ' -I' + dirname
