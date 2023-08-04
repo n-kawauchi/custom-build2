@@ -70,7 +70,7 @@ class BuildIDL(Command):
         for f in idl_files:
             log.info('***set_idl_list : {}'.format(f))
             #dirname = os.path.dirname(f)
-            log.info('***dirname : {}'.format(dirname))
+            #log.info('***dirname : {}'.format(dirname))
             self.compile_one_idl(f)
     
 
