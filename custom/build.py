@@ -66,7 +66,9 @@ class BuildIDL(Command):
                      for f in os.listdir(list_dir)
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
-            log.info('***kawa set_idl_list : {}'.format(f))
+            log.info('***set_idl_list : {}'.format(f))
+            dirname = os.path.dirname(f)
+            log.info('***dirname : {}'.format(dirname))
             self.compile_one_idl(f)
     
 
