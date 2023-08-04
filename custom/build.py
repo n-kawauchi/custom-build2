@@ -48,7 +48,7 @@ class BuildIDL(Command):
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmManipulator'
         if 'Manipulator' in idl_f:
-            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
+            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
             log.info('***compile_one_idl : {}'.format(idl_path_param))
         #    #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         #    idl_path_param += ' -I' + './'
