@@ -54,7 +54,7 @@ class BuildIDL(Command):
             log.info('***compile_one_idl : {}'.format(idl_path_param))
         #    #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         #    idl_path_param += ' -I' + './'
-        p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
+        p = subprocess.Popen([self.omniidl, '-v', '-bpython', idl_path_param,
                               outdir_param, pkg_param, idl_f],
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = p.communicate()
