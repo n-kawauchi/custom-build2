@@ -28,6 +28,7 @@ class BuildIDL(Command):
         self.stubs_dir = None
         self.idl_dir = None
         self.build_lib = None
+        self.common_idl_dirname = None
 
     def finalize_options(self):
         if not self.omniidl:
@@ -42,16 +43,16 @@ class BuildIDL(Command):
         self.examples_dir = os.path.join(os.getcwd(), 'OpenRTM_aist/examples')
         self.set_undefined_options('build', ('build_lib', 'build_lib'))
 
-    def compile_one_idl(self, idl_f):
+    def compile_one_idl(self, idl_f, idl_type):
         outdir_param = '-C' + self.stubs_dir
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        dirname = os.path.dirname(idl_f)
+        if idl_type == 'common':
+            self.common_idl_dirname = os.path.dirname(idl_f)
         #idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
-        idl_path_param = '-I' + dirname
+        idl_path_param = '-I' + self.common_idl_dirname
         #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmManipulator'
-        if 'Manipulator' in idl_f or \
-            'Camera' in idl_f:
-            #dirname = os.path.dirname(idl_f)
+        if idl_type != 'common':
+            dirname = os.path.dirname(idl_f)
             #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
             idl_path_param += ' -I' + dirname
             log.info('***compile_one_idl : {}'.format(idl_path_param))
@@ -66,7 +67,7 @@ class BuildIDL(Command):
                 'Failed to compile IDL file {}\nStdout:\n{}\n---\nStderr:\n'
                 '{}'.format(idl_f, stdout, stderr))
 
-    def set_idl_list(self, list_dir):
+    def set_idl_list(self, list_dir, idl_type):
         idl_files = [os.path.join(list_dir, f)
                      for f in os.listdir(list_dir)
                      if os.path.splitext(f)[1] == '.idl']
@@ -74,29 +75,29 @@ class BuildIDL(Command):
             log.info('***set_idl_list : {}'.format(f))
             #dirname = os.path.dirname(f)
             #log.info('***dirname : {}'.format(dirname))
-            self.compile_one_idl(f)
+            self.compile_one_idl(f, idl_type)
     
 
     def compile_idl(self):
         log.info('Generating Python stubs from IDL files')
         self.mkpath(self.stubs_dir)
-        self.set_idl_list(self.idl_src_dir)
+        self.set_idl_list(self.idl_src_dir, 'common')
 
         # ext/rtmCamera
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmCamera')
-        self.set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir, 'Camera')
 
         # ext/rtmManipulator
         idl_target_dir = os.path.join(self.idl_src_dir, 'ext/rtmManipulator')
-        self.set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir, 'Manipulator')
         
         # ../ext/sdo/observer
         idl_target_dir = os.path.join(self.idl_src_dir, '../ext/sdo/observer')
-        self.set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir, 'sdo')
 
         # ../ext/fsm4rtc_observer
         idl_target_dir = os.path.join(self.idl_src_dir, '../ext/fsm4rtc_observer')
-        self.set_idl_list(idl_target_dir)
+        self.set_idl_list(idl_target_dir, 'fsm4rtc')
 
     def move_stubs(self):
         stub_dest = os.path.join(self.build_lib, 'OpenRTM_aist', 'RTM_IDL')
