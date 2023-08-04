@@ -51,6 +51,8 @@ class BuildIDL(Command):
             idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         #idl_path_param = '-I' + self.common_idl_dirname
         #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmManipulator'
+        if idl_type == 'Camera':
+            idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmCamera'
         if idl_type == 'Manipulator':
             #dirname = os.path.dirname(idl_f)
             #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
