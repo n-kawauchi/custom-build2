@@ -45,9 +45,11 @@ class BuildIDL(Command):
     def compile_one_idl(self, idl_f):
         outdir_param = '-C' + self.stubs_dir
         pkg_param = '-Wbpackage=OpenRTM_aist.RTM_IDL'
-        #idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
-        idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext'
-        #if 'Manipulator' in idl_f:
+        idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
+        #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext'
+        if 'Manipulator' in idl_f:
+            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
+            log.info('***compile_one_idl : {}'.format(idl_path_param))
         #    #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         #    idl_path_param += ' -I' + './'
         p = subprocess.Popen([self.omniidl, '-bpython', idl_path_param,
