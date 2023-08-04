@@ -48,7 +48,9 @@ class BuildIDL(Command):
         idl_path_param = '-I' + 'OpenRTM_aist/RTM_IDL'
         #idl_path_param = '-IOpenRTM_aist/RTM_IDL -IOpenRTM_aist/RTM_IDL/ext/rtmManipulator'
         if 'Manipulator' in idl_f:
-            idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
+            dirname = os.path.dirname(idl_f)
+            #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext/rtmManipulator'
+            idl_path_param += ' -I' + dirname
             log.info('***compile_one_idl : {}'.format(idl_path_param))
         #    #idl_path_param += ' -I' + 'OpenRTM_aist/RTM_IDL/ext'
         #    idl_path_param += ' -I' + './'
@@ -67,7 +69,7 @@ class BuildIDL(Command):
                      if os.path.splitext(f)[1] == '.idl']
         for f in idl_files:
             log.info('***set_idl_list : {}'.format(f))
-            dirname = os.path.dirname(f)
+            #dirname = os.path.dirname(f)
             log.info('***dirname : {}'.format(dirname))
             self.compile_one_idl(f)
     
